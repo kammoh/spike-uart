@@ -15,7 +15,8 @@ args = ["build"]
 
 [tasks.build_plugin_test_rs]
 command = "cargo"
-args = ["build", "--package", "plugin_test"] #, "--target", "riscv64imac-unknown-none-elf", "--release"]
+args = ["build"] #, "--target", "riscv64imac-unknown-none-elf", "--release"]
+cwd = "plugin_test"
 
 [tasks.build_plugin_test]
 command = "make"
@@ -41,4 +42,4 @@ args = [
     "--device=test_mmio_plugin,0x10000000,argument",
     "plugin_test/target/riscv64imac-unknown-none-elf/debug/plugin_test",
 ]
-dependencies = ["build_plugin"]
+dependencies = ["build_plugin", "build_plugin_test_rs"]
