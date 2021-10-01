@@ -1,0 +1,15 @@
+[package]
+name = "plugin_test"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+riscv-rt = "0.8.0"
+panic-halt = "0.2.0"
+# riscv-target = "0.1.2"
+
+[build-dependencies]
+
+

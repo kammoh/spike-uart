@@ -1,0 +1,11 @@
+[target.'cfg(target_os = "macos")']
+rustflags = [
+    "-C",
+    "link-arg=-undefined",
+    "-C",
+    "link-arg=dynamic_lookup",
+    # "-C",
+    # "link-arg=-o",
+    # "-C",
+    # "link-arg=plugin.so",
+]

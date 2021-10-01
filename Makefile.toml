@@ -1,0 +1,33 @@
+[env]
+CARGO_MAKE_EXTEND_WORKSPACE_MAKEFILE = true
+
+[config]
+default_to_workspace = false
+
+[tasks.format]
+install_crate = "rustfmt"
+command = "cargo"
+args = ["fmt", "--", "--emit=files"]
+
+[tasks.build_plugin]
+command = "cargo"
+args = ["build", "--package", "plugin"]
+
+[tasks.build_plugin_test_rs]
+command = "cargo"
+args = ["build", "--package", "plugin_test", "--target", "riscv64imac-unknown-none-elf"]
+
+[tasks.build_plugin_test]
+command = "make"
+args = ["-C", "test", "plugin_test"]
+
+[tasks.spike]
+command = "spike"
+args = [
+    "-m1",
+    # "--extlib=${CARGO_MAKE_CRATE_TARGET_DIRECTORY}/debug/libplugin.dylib",
+    "--extlib=${CARGO_MAKE_CRATE_TARGET_DIRECTORY}/debug/plugin",
+    "--device=test_mmio_plugin,0x10000000,argument",
+    "./test/plugin_test",
+]
+dependencies = ["build_plugin", "build_plugin_test_rs", "build_plugin_test"]
