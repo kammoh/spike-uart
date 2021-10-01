@@ -1,12 +1,10 @@
 [build]
 target = "riscv64imac-unknown-none-elf"
-
-# rustflags = ["-C", "link-arg=-nostartfiles"]
 rustflags = [
     "-C",
     "link-arg=-Tmemory.x",
-    "-C",
-    "link-arg=-Tlink.x",
+    # "-C",
+    # "link-arg=-Tlink.x",
     "-C",
     "link-arg=-nostdlib",
     "-C",
@@ -16,5 +14,5 @@ rustflags = [
 ]
 
 
-[target.'cfg(all)']
+# [target.'cfg(all)']
 # rustflags = ["-C", "link-arg=-nostartfiles"]

@@ -14,24 +14,26 @@ extern "C" {
 
 extern "C" fn alloc(args: *const libc::c_char) -> *mut libc::c_void {
     unsafe {
-        println!("ALLOC -- ARGS={}", std::ffi::CStr::from_ptr(args).to_string_lossy().into_owned());
+        println!("! ALLOC -- ARGS={}", std::ffi::CStr::from_ptr(args).to_string_lossy().into_owned());
     }
 
     return 0x123456789abcdef as *mut libc::c_void;
 }
 
 extern "C" fn load(c_self: *mut libc::c_void, addr: u64, len: libc::size_t, bytes: *mut libc::c_uchar) -> bool {
-    println!("LOAD -- SELF={:p} ADDR={:#x} LEN={} BYTES={:p}", c_self, addr, len, bytes);
+    let slice = unsafe { std::slice::from_raw_parts(bytes, 8) };
+    println!("> LOAD -- SELF={:p} ADDR={:#x} LEN={} BYTES={:X?}", c_self, addr, len, slice);
     return true;
 }
 
 extern "C" fn store(c_self: *mut libc::c_void, addr: u64, len: libc::size_t, bytes: *const libc::c_uchar) -> bool {
-    println!("STORE -- SELF={:p} ADDR={:#x} LEN={} BYTES={:p}", c_self, addr, len, bytes);
+    let slice = unsafe { std::slice::from_raw_parts(bytes, 8) };
+    println!("< STORE -- SELF={:p} ADDR={:#x} LEN={} BYTES={:X?}", c_self, addr, len, slice);
     return true;
 }
 
 extern "C" fn dealloc(c_self: *mut libc::c_void) {
-    println!("DEALLOC -- SELF={:p}", c_self);
+    println!("? DEALLOC -- SELF={:p}", c_self);
 }
 
 #[ctor::ctor]

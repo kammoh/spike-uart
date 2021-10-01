@@ -8,6 +8,18 @@ li t0, 0x10000000
 lw t1, 0(t0)
 sw t1, 0(t0)
 
+li t0, 0x10000000
+lw t1, 0(t0)
+sw t1, 0(t0)
+
+li t0, 0x10000000
+li t1, 0x22
+sw t1, 0(t0)
+li t1, 0x78
+sw t1, 0(t0)
+lw t1, 0(t0)
+sw t1, 0(t0)
+
 # Write the value 1 to tohost, telling Spike to quit with an exit code of 0.
 li t0, 1
 la t1, tohost

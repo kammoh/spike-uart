@@ -6,10 +6,15 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-riscv-rt = "0.8.0"
 panic-halt = "0.2.0"
+# riscv-rt = "0.8.0"
 # riscv-target = "0.1.2"
 
 [build-dependencies]
+
+[profile.release]
+opt-level = "s" # or 3
+
+[profile.dev]
 
 

@@ -1,6 +1,15 @@
-[workspace]
+[package]
+name = "plugin"
+version = "0.1.0"
+edition = "2018"
 
-members = [
-    "plugin",
-    "plugin_test"
-]
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+ctor = "0.1.21"
+libc = "0.2.103"
+
+[[bin]]
+name = "plugin"
+path = "src/main.rs"
+# filename = "plugin.so"

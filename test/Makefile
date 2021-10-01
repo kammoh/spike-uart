@@ -1,7 +1,11 @@
 OS_NAME := $(shell uname -s)
 
-plugin_test: plugin_test.S
+plugin_test: plugin_test.S Makefile
 	riscv64-unknown-elf-gcc -nostdlib -static -Wl,-Ttext-segment,0x80000000 plugin_test.S -o plugin_test
+
+plugin_test.dump: plugin_test
+	riscv64-unknown-elf-objdump -d plugin_test > plugin_test.dump
+	cat plugin_test.dump
 
 ################ C plugin #################
 CFLAGS = -Wall -Werror -fPIC
