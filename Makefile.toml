@@ -15,7 +15,7 @@ args = ["build", "--package", "plugin"]
 
 [tasks.build_plugin_test_rs]
 command = "cargo"
-args = ["build", "--package", "plugin_test", "--target", "riscv64imac-unknown-none-elf"]
+args = ["build", "--package", "plugin_test", "--target", "riscv64imac-unknown-none-elf", "--release"]
 
 [tasks.build_plugin_test]
 command = "make"
@@ -28,6 +28,7 @@ args = [
     # "--extlib=${CARGO_MAKE_CRATE_TARGET_DIRECTORY}/debug/libplugin.dylib",
     "--extlib=${CARGO_MAKE_CRATE_TARGET_DIRECTORY}/debug/plugin",
     "--device=test_mmio_plugin,0x10000000,argument",
+    # "${CARGO_MAKE_CRATE_TARGET_DIRECTORY}/riscv64imac-unknown-none-elf/debug/plugin_test",
     "./test/plugin_test",
 ]
 dependencies = ["build_plugin", "build_plugin_test_rs", "build_plugin_test"]

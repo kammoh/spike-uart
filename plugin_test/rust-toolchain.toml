@@ -1,0 +1,5 @@
+[toolchain]
+channel = "nightly"
+components = ["rustfmt", "rustc-dev"]
+targets = ["riscv64imac-unknown-none-elf", "riscv32imac-unknown-none-elf"]
+# profile = "minimal"
