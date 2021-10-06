@@ -25,7 +25,6 @@ args = ["-C", "test", "plugin_test"]
 # [tasks.spike]
 # command = "spike"
 # args = [
-#     "-m1",
 #     # "--extlib=${CARGO_MAKE_CRATE_TARGET_DIRECTORY}/debug/libplugin.dylib",
 #     "--extlib=${CARGO_MAKE_CRATE_TARGET_DIRECTORY}/debug/plugin",
 #     "--device=test_mmio_plugin,0x10000000,argument",
@@ -35,11 +34,11 @@ args = ["-C", "test", "plugin_test"]
 # dependencies = ["build_plugin", "build_plugin_test_rs", "build_plugin_test"]
 
 [tasks.spike]
-command = "spike"
+command = "/Volumes/src_cs/riscv/riscv-isa-sim/spike"
 args = [
-    "-m1",
-    "--extlib=${CARGO_MAKE_CRATE_TARGET_DIRECTORY}/debug/plugin",
-    "--device=test_mmio_plugin,0x10000000,argument",
-    "plugin_test/target/riscv64imac-unknown-none-elf/debug/plugin_test",
+    "-m32",
+    "--extlib=target/debug/plugin",
+    "--device=uart_plugin,0x10000000,argument",
+    "plugin_test/target/riscv64gc-unknown-none-elf/debug/plugin_test",
 ]
 dependencies = ["build_plugin", "build_plugin_test_rs"]

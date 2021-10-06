@@ -1,11 +1,26 @@
 OS_NAME := $(shell uname -s)
 
+RISCV_TOOLCHAIN = riscv64-unknown-elf
+
+RISCV_CC = $(RISCV_TOOLCHAIN)-gcc
+RISCV_LD = $(RISCV_TOOLCHAIN)-ld
+
+RISCV_CFLAGS=-mcmodel=medany -static -std=gnu99 -O2 -fno-common -fno-builtin-printf -fno-tree-loop-distribute-patterns
+#-static -mcmodel=medany -fvisibility=hidden -nostdlib -nostartfiles
+RISCV_LDFLAGS=-static -nostdlib -nostartfiles -Tlink.ld 
+
 plugin_test: plugin_test.S Makefile
 	riscv64-unknown-elf-gcc -nostdlib -static -Wl,-Ttext-segment,0x80000000 plugin_test.S -o plugin_test
 
-plugin_test.dump: plugin_test
-	riscv64-unknown-elf-objdump -d plugin_test > plugin_test.dump
-	cat plugin_test.dump
+%.riscv: %.c link.ld crt.S
+	$(RISCV_CC) $(RISCV_CFLAGS) $(RISCV_LDFLAGS) $< syscalls.c crt.S -o $@
+
+%.riscv: %.S link.ld
+	$(RISCV_CC) $(RISCV_CFLAGS) -T link.ld $< -o $@
+
+%.riscv.dump: %.riscv
+	riscv64-unknown-elf-objdump -d $< > $@
+	cat $@
 
 ################ C plugin #################
 CFLAGS = -Wall -Werror -fPIC
@@ -22,7 +37,7 @@ plugin.so: plugin.c
 .PHONY: test clean
 
 test: plugin_test plugin.so
-	spike -m1 --extlib=plugin.so --device=test_mmio_plugin,0x10000000,argument plugin_test
+	spike -m1 --extlib=plugin.so --device=uart_plugin,0x10000000,argument plugin_test
 
 clean:
 	$(RM) -f plugin_test

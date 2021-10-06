@@ -1,8 +1,13 @@
 [build]
-target = "riscv64imac-unknown-none-elf"
+# target = "riscv64imac-unknown-none-elf"
+target = "riscv64gc-unknown-none-elf"
+# rustflags = [
+#   "-C", "link-arg=-Tmemory.x",
+#   "-C", "link-arg=-Tlink.x",
+# ]
 rustflags = [
     "-C",
-    "link-arg=-Tmemory.x",
+    "link-arg=-Tlinker.x",
     # "-C",
     # "link-arg=-Tlink.x",
     "-C",

@@ -7,14 +7,9 @@ edition = "2018"
 
 [dependencies]
 panic-halt = "0.2.0"
-# riscv-rt = "0.8.0"
-# riscv-target = "0.1.2"
+macros = { path = "macros" }
 
 [build-dependencies]
 
 [profile.release]
 opt-level = "s" # or 3
-
-[profile.dev]
-
-

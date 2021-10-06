@@ -1,3 +1,7 @@
+# [workspace]
+# members = [".", "plugin_test"]
+# default-members = ["."]
+
 [package]
 name = "plugin"
 version = "0.1.0"
@@ -8,8 +12,10 @@ edition = "2018"
 [dependencies]
 ctor = "0.1.21"
 libc = "0.2.103"
+num_enum = "0.5.4"
 
 [[bin]]
 name = "plugin"
 path = "src/main.rs"
 # filename = "plugin.so"
+
